@@ -16,12 +16,13 @@
 #include "Avion.h"
 #include "DestinoS.h"
 #include "Vuelos.h"
+#include "pilotos.h"
 
 #define TAMAV  300
 #define TAMT 4
 #define TAMAE 5
 #define TAMD 4
-
+#define TAMP 10
 
 int main(void)
 {
@@ -58,6 +59,19 @@ int main(void)
 		{20002, "Madird", 84400},
 	    {20003, "Amsterdam", 95600},
 	};
+	ePiloto pilotos[TAMP] =
+	{
+		{50000, "Carlos", 'M'},
+		{50001, "Mirian", "F"},
+		{50002, "Mario", 'M'},
+	    {50003, "Antonio", 'M'},
+		{50004, "Gustavo", 'M'},
+		{50005, "Sol", "F"},
+		{50006, "Kobe", 'M'},
+	    {50007, "Anabel", "F"},
+		{50008, "Jorge", 'M'},
+		{50009, "Juan", 'M'},
+	};
 	do
 		{
 			switch(menu())
@@ -71,7 +85,7 @@ int main(void)
 					}
 					if(flagCarga == 1)
 					{
-						altaAvion(aviones, TAMAV, tipos, TAMT, aerolineas, TAMAE, &proximoIdAvion);
+						altaAvion(aviones, TAMAV,tipos, TAMT, aerolineas, TAMAE , pilotos, TAMP, &proximoIdAvion);
 					}
 					else
 					{
@@ -81,7 +95,7 @@ int main(void)
 				case 2:
 					if(flagCarga == 1)
 					{
-						modificarAvion(aviones, TAMAV, tipos, TAMT, aerolineas, TAMAE, &proximoIdVuelo);
+						modificarAvion(aviones, TAMAV, tipos, TAMT, aerolineas, TAMAE, pilotos, TAMP, &proximoIdVuelo);
 					}
 					else
 					{
@@ -91,7 +105,7 @@ int main(void)
 				case 3:
 					if(flagCarga == 1)
 					{
-						bajaAvion(aviones, TAMAV);
+						bajaAvion(aviones, TAMAV ,pilotos, TAMP);
 					}
 					else
 					{
@@ -101,7 +115,7 @@ int main(void)
 				case 4:
 					if(flagCarga == 1)
 					{
-						listarAvion(aviones, TAMAV);
+						ordenarAvionPorAerolineaYCapacidadAcd(aviones, TAMAV, pilotos, TAMP);
 					}
 					else
 					{
@@ -123,12 +137,12 @@ int main(void)
 						if(flagCargaV == 0)
 						{
 						inicializarVuelos(vuelos , TAMAV);
-						buscarVuelosLibre(vuelos , TAMAV, &proximoIdVuelo);
+						buscarVuelosLibre(vuelos , TAMAV, &indice);
 						flagCargaV=1;
 						}
 						if(flagCargaV == 1)
 						{
-							altaVuelo(vuelos , TAMAV, aviones, TAMAV, destinos , TAMD, &proximoIdVuelo);
+							altaVuelo(vuelos , TAMAV, aviones, TAMAV, destinos , TAMD, pilotos, TAMP, &proximoIdVuelo);
 						}
 
 					}
@@ -150,6 +164,38 @@ int main(void)
 
 				break;
 				case 10:
+					mostarAvionesConAreolineas(aviones, aerolineas,  TAMAV, TAMAE, pilotos, TAMP);
+				break;
+				case 11:
+					 mostarAvionesConTipos(aviones, tipos,  TAMAV, TAMT, pilotos, TAMP);
+				break;
+				case 12:
+					promJetPorAerolinea(aviones, TAMAV, aerolineas, TAMAE);
+				break;
+				case 13:
+					mostrarAvionesPorAerolinea(aviones,  TAMAV, pilotos, TAMP);
+				break;
+				case 14:
+					informarAvionMasCantidad(aviones, TAMAV);
+				break;
+				case 15:
+					contarAvionesPorAerolienasYTipo(aviones, TAMAV, aerolineas, TAMAE, tipos, TAMT);
+				break;
+				case 16:
+					informarAvionMasCantidad(aviones, TAMAV, aerolineas, TAMAE);
+				break;
+				case 17:
+					vuelosDeUnAvion(vuelos, aviones, TAMAV, pilotos, TAMP);
+				break;
+				case 18:
+					//no pude hacerla
+				case 19:
+				    mostrarAvionPorDestino(vuelos, TAMAV, destinos, TAMP);
+				break;
+				case 20:
+					mostrarVuelosPorFecha(vuelos, TAMAV);
+				break;
+				case 21:
 					confirmarSalida(&salir);
 				break;
 				default:

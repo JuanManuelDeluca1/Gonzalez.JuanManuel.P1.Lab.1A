@@ -15,3 +15,5 @@ typedef struct{
 }eFecha;
 
 #endif /* FECHA_H_ */
+
+int validarFecha(eFecha e, int tam);
